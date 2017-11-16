@@ -7,7 +7,6 @@ import com.mingsheng.util.RespStatus;
 import com.mingsheng.util.SmsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 增加支付密码的验证码
+     * 注册验证码
      *
      * @param
      * @return
@@ -44,12 +43,14 @@ public class UserController {
                 code += String.valueOf(r.nextInt(10));
             }
             SmsUtils.veriCode(phone, code);
-            RedisUtil.getRu().setex("reg" + phone, code, 1800);
+//            RedisUtil.getRu().setex("reg" + phone, code, 1800);
             return RespStatus.success();
         } catch (Exception e) {
             e.printStackTrace();
             return RespStatus.exception();
         }
     }
+
+
 
 }
